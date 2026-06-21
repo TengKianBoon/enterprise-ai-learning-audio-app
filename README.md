@@ -1,22 +1,24 @@
-# Enterprise AI Solutions Architecturing and Framework
+# Governed Audio Learning Pipeline
 
-Local-first implementation of an Enterprise AI solutions architecture learning system. The app turns Chinese and English voice recordings, local YouTube videos, or phone-generated `.txt` transcripts into governed learning artifacts:
+Local-first pipeline that turns spoken content — Chinese or English voice recordings, local video files, or phone-generated `.txt`/`.md` transcripts — into governed learning artifacts:
 
 - original-language transcript
 - optional English markdown transcript
-- OpenAI quality summary and quality score
-- mindmap delta review
-- sanitized public-review package
+- quality-scored summary
+- concept-map (mindmap) delta review
+- sanitized, public-safe review package
 
-The code repo is intended to be public. Raw audio, private transcripts, and source learning material stay outside the repo.
+The code repository is intended to be public. Raw audio, full transcripts, and private source material stay outside the repo. Inputs are limited to content the operator has the right to process — own voice notes, permitted talks and lectures, and self-generated transcripts.
 
-## Operator Quick Start
+## What it demonstrates
 
-This repo is designed to be simple to operate while demonstrating mid-to-senior enterprise AI engineering practice: private raw-data control, OpenAI-centered quality synthesis, MCP-ready tools, explicit cost/quality gates, and human approval before public publishing.
+Mid-to-senior enterprise AI engineering practice in a small, operable system: private raw-data control, an OpenAI-centred quality layer, MCP-ready tools, explicit cost and quality gates, and human approval before anything is published.
 
-1. Put this repo beside the private audio sandbox folder.
+## Operator quick start
+
+1. Place this repo beside the private audio sandbox folder.
 2. Copy `config/paths.local.example.yaml` to `config/paths.local.yaml` for machine-specific paths.
-3. Keep FFmpeg portable or configured by path. Do not change global PATH just for this app.
+3. Keep FFmpeg portable or configured by path. Do not change the global PATH just for this app.
 4. Drop audio/video or `.txt`/`.md` transcripts into the private sandbox `incoming/` folder.
 5. Run a safe mock test first:
 
@@ -24,7 +26,7 @@ This repo is designed to be simple to operate while demonstrating mid-to-senior 
 python -m app process --input ".\tests\fixtures\sample.m4a" --mock
 ```
 
-6. For a real run, configure FFmpeg, Whisper, and your OpenAI API key first. For frequent use on your own Windows account, store it once as a user-level environment variable:
+6. For a real run, configure FFmpeg, Whisper, and your OpenAI API key first. For frequent use on your own Windows account, store the key once as a user-level environment variable:
 
 ```powershell
 .\scripts\set-openai-key-user.ps1
@@ -42,8 +44,6 @@ To remove the saved key later:
 .\scripts\clear-openai-key-user.ps1
 ```
 
-Use the one-session prompt method in `docs/real-audio-setup.md` on shared machines or when you want maximum caution.
-
 Core operator commands:
 
 ```powershell
@@ -55,24 +55,6 @@ Core operator commands:
 .\run.ps1 mindmap --review
 .\run.ps1 publish --sanitize
 .\run.ps1 exhibit --audit
-```
-
-Direct Python commands remain available for debugging:
-
-```powershell
-python -m app tools --json
-python -m app process --input "C:\path\to\file.m4a"
-python -m app watch --folder "C:\path\to\incoming" --once
-python -m app mindmap --review
-python -m app publish --sanitize
-python -m app exhibit --audit
-python tests\score.py
-```
-
-If `python` is not recognized on this machine, use the bundled Codex Python executable:
-
-```powershell
-& "C:\Users\User\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m app process --input ".\tests\fixtures\sample.m4a" --mock
 ```
 
 ## Architecture
@@ -92,28 +74,13 @@ incoming audio/video/text transcript
   -> optional sanitized public-review package and public mindmap links
 ```
 
-## Privacy Model
+## Privacy model
 
-- Public: app code, docs, skills, architecture, safe examples.
-- Private: raw audio, full transcripts, private source notes, local state.
-- Curated public: sanitized summaries and learning reflections after human review.
+- **Public:** app code, docs, architecture, safe examples.
+- **Private:** raw audio, full transcripts, private source notes, local state.
+- **Curated public:** sanitized summaries and reflections, after human review.
 
-## GitHub Exhibit Layer
-
-The app now mirrors sanitized public-safe artifacts into:
-
-```text
-portfolio_public/
-```
-
-That folder is intended to live inside the public code repo so GitHub can show:
-
-- the latest portfolio-safe Enterprise AI solutions framework map
-- sanitized review packages
-- visible progress over time through normal Git history
-- current framework map and curated package history through normal Git commits
-
-## Public Exhibit Gate
+## Public exhibit gate
 
 Before sharing any generated artifact, run:
 
@@ -125,39 +92,21 @@ Before sharing any generated artifact, run:
 
 `passed: true` means there are no public/privacy blockers. `portfolio_ready: true` means there are also no quality warnings. A review-safe draft can be useful internally, but it should not be presented as polished public learning until the audit is clean.
 
-After `publish --sanitize`, the repo-side exhibit mirror is refreshed automatically.
+## Portfolio positioning
 
-## Cross-App Showcase Standard
+This project signals applied enterprise AI engineering judgment — not prompting, not platform theater, but a controlled pipeline with real governance:
 
-Every application developed in this portfolio should follow the same public-readiness pattern:
-
-- public-safe code repo
-- clear problem/solution/architecture story
-- ADRs and build journal
-- beginner-safe runbook
-- test and audit commands
-- privacy gate before publishing
-- curated demo artifacts only
-
-See `docs/github-showcase-standard.md` for the reusable checklist and maturity levels.
-
-## Portfolio Positioning
-
-This project is intentionally built to signal applied enterprise AI engineering judgment: not just prompting, not platform theater, but a controlled Enterprise AI solutions architecture framework with real governance.
-
-It demonstrates:
-
-- MCP-ready tool orchestration with CLI as a fallback
-- configurable OpenAI high-reasoning learning synthesis, with optional full transcript translation
+- MCP-ready tool orchestration with a CLI fallback
+- configurable OpenAI synthesis, with optional full-transcript translation
 - local Whisper-compatible transcription
 - agent contracts before agent work
-- maker/checker separation
+- maker–checker separation
 - manual-first autonomy
 - hooks and quality gates
-- ADRs and build journal
+- ADRs and a build journal
 - long-term memory as repo artifacts
 - privacy-preserving publishing
 
-The public story is: **Teng Kian Boon designed and operates the learning pipeline; OpenAI and Whisper assist execution under human review, cost controls, quality gates, and privacy-preserving publishing.**
+The public story: **the operator designs and runs the pipeline; OpenAI and Whisper assist execution under human review, cost controls, quality gates, and privacy-preserving publishing.**
 
 See `AGENTS.md`, `docs/real-audio-setup.md`, `docs/enterprise-readiness.md`, `docs/mcp-orchestration.md`, `docs/agent-contracts.md`, `docs/git-versioning.md`, and `docs/adr/`.
