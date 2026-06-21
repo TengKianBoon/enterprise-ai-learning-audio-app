@@ -16,7 +16,6 @@
 - Retry cap is 3 by default.
 - Cost guard records rough token estimates per learning package before batch OpenAI use.
 - MCP-ready tools are the primary orchestration interface; CLI is a beginner fallback.
-- Public positioning target is level 7.5/10 enterprise AI builder: TKB as owner/operator, AI as governed toolchain.
 
 ## Important Decisions
 
